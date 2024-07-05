@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="slike/logo.ico">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kota011">
+    <meta name="description" content="Another clicker game">
+    <meta name="keywords" content="Clicker, Chicken, Incremental">
+
+    <link rel="icon" href="slike/chicken.png" type="image/x-icon">
+    <meta name="theme-color" content="#091B2C">
+
+    <link rel="stylesheet" href="fontovi.css">
+    <link rel="stylesheet" href="boje.css">
+    <link rel="stylesheet" href="styleBody.css">
+    <link rel="stylesheet" href="styleGeneral.css">
+    <link rel="stylesheet" href="styleGrid.css">
+
+    <title>Chicken clicker</title>
+</head>
+<body class="bojaPoz" onload="changeCursor()">
+    <div class="topGradient">
+    </div>
+    <div class="bottomGradient">
+    </div>
+
+    <div class="grid-container">
+        <div class="item1">Header</div>
+
+        <div class="chickContainer vertical">
+
+            <h1>The Progenitor Chicken</h1>
+        <img src="slike/chicken.png" alt="chicken-image" class="chicken" onclick="chickenClick()">
+
+        <div class="horizontal">
+            <img src="slike/egg.png" alt="egg" class="jajeImg"">
+            <h1>Eggs: <span class="totalEggs">0</span>
+            </h1>
+        </div>
+
+        </div>
+
+        <div class="shop horizontal" style="flex-wrap: wrap;">
+            <div class="shop-item vertical">
+                <h1> X <span class="chick-count"> 1 </span></h1>
+                <img src="slike/chicken.png" alt="" class="shop-img" onclick="buy('chick')">
+                    
+                    <h1><span class="chick-cost"> 4 </span> $ </h1>
+            </div>
+            <div class="shop-item vertical">
+                <h1> X <span class="packer-count"> 0 </span></h1>
+                <img src="slike/egg-carton.png" alt="" class="shop-img" onclick="buy('packer')">
+                <div class="horizontal">
+                    <span class="packer-cost"> 8 </span>
+                    <h1> $ </h1>
+                </div>
+            </div>
+            <div class="shop-item vertical">
+                <h1> X <span class="incub-count"> 0 </span></h1>
+                <img src="slike/incubator.png" alt="" class="shop-img" onclick="buy('incub')">
+                <div class="horizontal">
+                    <span class="incub-cost"> 10 </span>
+                    <h1> $ </h1>
+                </div>
+            </div>
+            
+        </div>  
+
+
+
+        <div class="upgrades">Upgrade menu
+        </div>
+        <div style="padding: 10px;">
+            <h1>Money: <span class="disp"> 0 </span></h1>
+            <button onclick="test()" style="width: 80px; height: 50px; color: black; background-color: antiquewhite;">
+            Test</button>
+        </div>
+        <div class="packing p1">
+            <div class="vertical">
+                <div class="horizontal">
+                    <h1>10X</h1>
+                    <img src="slike/egg.png" alt="" class="jajeImg"">
+                    <h1>get</h1>
+                    <img src="slike/egg-carton.png" alt="" class="pack clickable" onclick="getMoney('packer')">
+                </div>
+                <div class="horizontal">
+                    <img src="slike/egg-carton.png" alt="" class="jajeImg"">
+                    <h1>'s sell for <span class="disp">4</span>$</h1>
+                </div>
+            </div>
+           
+        </div>
+        <div id="abc"aaaaaa</div>
+      </div>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

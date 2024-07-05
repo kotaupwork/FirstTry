@@ -1,0 +1,24 @@
+chick
+{
+    egg -> maybe mutated egg?
+    feather -> 
+}
+
+pigen
+{
+    bacon -> tons of money
+    grease/ointment -> gummy bears
+
+}
+
+cowken
+{
+    milk -> cheese
+    lether -> choots
+}
+
+fishen
+{
+    scales
+    bones
+}

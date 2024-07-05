@@ -1,0 +1,204 @@
+let tEggs = document.querySelector('.totalEggs')
+let pEggs = 50
+
+let Beps = 0
+let Teps = 0
+let Epc = 1
+
+let pMoney = 0
+let Bmps = 0
+let Tmps = 0
+
+//VARIABLES
+
+var packet = {
+    'sellPrice':4,
+    'reqEggs':10
+}
+
+var chick = {
+    'count':1,
+    'cap':10,
+    'eps':0,
+    'cost':4,
+    'cadd':1,
+    'cmul':1
+}
+
+var packer = {
+    'count':0,
+    'time':10,
+    'cost':8,
+    'cadd':1,
+    'cmul':1.04
+}
+
+var incub = {
+    'count':0,
+    'cap':1,
+    'eps':1,
+    'cost':10,
+    'cadd':0,
+    'cmul':1.2
+}
+
+//BUY ITEMS
+
+function buy(item){
+    let itemC = eval(item).cost
+
+    if(pMoney >= itemC){
+        pMoney -= itemC
+        document.querySelector('.disp').innerHTML = pMoney
+        addItem(item)
+    }
+}
+
+function addItem(item){
+    eval(item).count ++;
+    eval(item).cost = parseInt((eval(item).cost+eval(item).cadd)*eval(item).cmul)
+
+    iCount = document.querySelector('.'+item+'-count')
+    iCost = document.querySelector('.'+item+'-cost')
+    iCount.innerHTML = parseInt(iCount.innerHTML) + parseInt(1)
+    iCost.innerHTML = eval(item).cost
+
+    changeBeps()
+}
+
+//EGGS
+
+function chickenClick(){
+    updateEggs(Epc);
+}
+
+function changeBeps(){
+    if(chick.count>incub.count*incub.cap){
+    Beps = chick.count*chick.eps + incub.count*incub.cap*incub.eps
+    //beps = c.count*c.eps + i.count*i.cap*i.eps
+    }
+    else{
+    Beps = chick.count*chick.eps + chick.count*incub.eps
+    }
+    changeTeps();
+}
+function changeTeps(){
+    Teps = Beps * 1;
+}
+
+function updateEggs(ammount){
+    pEggs = pEggs + ammount
+    tEggs.innerHTML = parseInt(Math.round(pEggs))
+}
+
+setInterval(() => {
+    pEggs += Teps /2
+    tEggs.innerHTML = parseInt(Math.round(pEggs))
+},500)
+
+//MONEY
+
+function getMoney(pack){
+    if(pEggs>=packet.reqEggs){
+        updateEggs(-10);
+        pMoney += parseFloat(packet.sellPrice)
+        document.querySelector('.disp').innerHTML = pMoney
+    }
+    if(pMoney>=10){
+        addUpgrades(10, 'money')
+        addUpgrades(parseInt(pEggs), 'egg')
+    }
+}
+
+//UPGRADES
+
+var indCounter = 0
+class Upgrade{
+    constructor(name, cost, effect) {
+        this.index = indCounter
+        this.name = name
+        this.cost = cost
+        this.effect = effect
+        indCounter++
+      }
+    get stats(){
+        return this.name + ', ' + this.cost + ', ' + this.effect
+    }
+    buy(){
+        if(pMoney > this.cost){
+            pMoney -= parseInt(this.cost)
+            eval(this.effect)
+        }
+    }
+}
+
+class Upgrades {
+    constructor() {
+      this.upgrade = []
+    }
+    newUp(name, cost, effect) {
+        let n = new Upgrade(name, cost, effect)
+        this.upgrade.push(n)
+        return n
+    }
+    get numberOfUpgrades(){
+        return this.upgrade.length
+    }
+ }
+
+ var up = new Upgrades()
+ var addedUps = 0
+ var milestoneM = 0
+ var milestoneE = 0
+ const upMenu = document.querySelector('.upgrades')
+
+ function addUpgrades(ms, type) {
+        if(type=='money' && ms>milestoneM)
+        {
+            milestoneM = ms
+            alert('money milestone')
+            up.newUp('Larger incubators', 1, 'incub.cap++')
+            up.newUp('Better clicks', 2, 'Epc++')
+            alert('up 1 and 2 added')
+            alert(up.numberOfUpgrades, 'upgrades')
+        }/*
+        if(type=='egg' && ms>milestoneE){
+            milestoneE = ms
+            alert('egg milestone')
+            up.newUp('Larger incubators', 3, 'incub.cap++')
+            up.newUp('Better clicks', 4, 'Epc++')
+        }*/
+
+    up.upgrade.forEach(upgrade => {
+        if(1)
+        {
+            var nu = document.createElement("div")
+            nu.id = "upp" + upgrade.index
+            newUp.onclick = "buyUpgrade('up1')"
+            upMenu.appendChild(nu)
+            alert('newUp appended')
+            addedUps++;
+        }
+        else{
+            alert('all ups added, addedUps=', addedUps)
+        }
+    });
+ }
+ 
+function buyUpgrade(upgrade){
+    
+}
+
+
+let cUpgrade = 0
+
+function changeCursor(){
+    let object = document.querySelector('.chicken');
+    switch(cUpgrade){
+        case 1:
+            object.style.cursor = "url('/slike/WIB.cur'), auto"
+            break;
+        default:
+            PointerEvent;
+    }
+}

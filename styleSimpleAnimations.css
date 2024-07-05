@@ -1,0 +1,66 @@
+.top-to-bottom {
+    animation: 0.4s top-to-bottom forwards;
+    letter-spacing: -.005em;
+} 
+
+@keyframes top-to-bottom {
+    from {
+    transform: translateY(-48px);
+    }
+    to {
+    transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp{
+    0% { opacity: 0;}
+    100% { opacity: 1;}
+}
+
+
+@keyframes flicker{
+    0% { opacity: 0;}
+    20% { opacity: 1;}
+    40% { opacity: 0;}
+    60% { opacity: 1;}
+    80% { opacity: 0;}
+    100% { opacity: 1;}
+}
+
+@keyframes flickerInfinite{
+    0% { opacity: 1;}
+    35% { opacity: 1;}
+    45% { opacity: 1;}
+    50% { opacity: 0;}
+    55% { opacity: 1;}
+    60% { opacity: 0;}
+    62% { opacity: 1;}
+    64% { opacity: 0;}
+    66% { opacity: 1;}
+    68% { opacity: 0;}
+    70% { opacity: 1;}
+    72% { opacity: 0;}
+    74% { opacity: 1;}
+    76% { opacity: 0;}
+    80% { opacity: 1;}
+    100% { opacity: 1;}
+}
+
+@keyframes fadeUp{
+    0% { transform: translateY(30vh);
+        opacity: 0;
+        }
+    100%{ transform: translateY(0);
+          opacity: 1;
+        }
+}
+@keyframes pulse{
+    0% { width: 100%; height: 100%;}
+    50% { width: 120%; height: 120%;}
+    100% { width: 100%; height: 100%;}
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0;}
+    100%{ opacity: 1;}
+}

@@ -1,0 +1,32 @@
+.item1 { grid-area: header; }
+.shop { grid-area: menu; }
+.upgrades { grid-area: right; }
+
+
+.grid-container {
+    width: 100%;
+    height: 100%;
+  display: grid;
+  grid-template-areas:
+    'header header header header'
+    'main menu menu right'
+    'main footer footer footer';
+  gap: 0px;
+}
+
+.grid-container > div {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 20px;
+  border: 5px solid antiquewhite;
+}
+
+/*
+<div class="grid-container">
+  <div class="item1">Header</div>
+  <div class="item2">Main</div>
+  <div class="item3">Menu</div>  
+  <div class="item4">Right</div>
+  <div class="item5">Footer</div>
+</div>
+*/
