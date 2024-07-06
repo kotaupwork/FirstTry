@@ -1,7 +1,25 @@
-.item1 { grid-area: header; }
+.tabName { 
+  grid-area: header; 
+}
 .shop { grid-area: menu; }
-.upgrades { grid-area: right; }
 
+.upgrades { 
+  grid-area: right; 
+  width: 400px;
+}
+
+.clickContainer{
+  grid-area: main;
+  width: 250px;
+}
+
+.packing { 
+  grid-area: footer; 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+}
 
 .grid-container {
     width: 100%;

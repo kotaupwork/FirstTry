@@ -24,10 +24,7 @@
     cursor: url('/slike/WIB.cur'), auto;
 }*/
 
-.chickContainer{
-    width: 250px;
-    grid-area: main;
-}
+
 
 .horizontal{
     display: flex;
@@ -49,8 +46,12 @@
 .horizontal * {
     margin-inline: 2px;
 }
-.jajeImg{
+.prodImg{
     width: 50px;
+}
+
+.clickContainer h1{
+    margin-inline: 20px;
 }
 
 .shop-item{
@@ -68,9 +69,6 @@
     cursor: pointer;
 }
 
-.upgrades{
-    width: 400px;
-}
 .upgrades div{
     width: 80px;
     height: 40px;
@@ -86,13 +84,7 @@
     background-size:contain;
 }
 
-.packing { 
-    grid-area: footer; 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content:flex-start;
-}
+
 
 .pack{
     cursor: pointer;

@@ -4,20 +4,20 @@ chick
     feather -> 
 }
 
-pigen
+chig
 {
-    bacon -> tons of money
     grease/ointment -> gummy bears
+    bacon -> tons of money
 
 }
 
-cowken
+chow
 {
     milk -> cheese
     lether -> choots
 }
 
-fishen
+chiish
 {
     scales
     bones

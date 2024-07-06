@@ -12,13 +12,101 @@ let Bmps = 0
 let Tmps = 0 
 //#endregion
 
+class Resourec{
+    constructor(tRes, pRes, bRps, tRps, Rpc) {
+        this.tRes = tRes
+        this.pRes = pRes
+        this.bRps = bRps
+        this.tRps = tRps
+        this.Rpc = Rpc
+    }
+
+}
 
 //VARIABLES
 //#region 
+
+class Animal{
+    constructor(name, cost, effect) {
+        
+        
+      }
+    get stats(){
+        return this.name + ', ' + this.cost + ', ' + this.effect
+    }
+    buy(elem){
+        if(pMoney > this.cost){
+            changeMoney((-1*this.cost))
+            
+            /* ADD EFFECT*/ 
+        }
+    }
+}
+
+class Packer{
+    constructor(name, count, time, cost, cadd, cmul) {
+        this.name = name
+        this.count = count
+        this.time = time
+        this.cost = cost
+        this.cadd = cadd
+        this.cmul = cmul
+      }
+    get count(){
+        return this.name + ': ' + this.count
+    }
+    buy(){
+        if(pMoney > this.cost){
+            changeMoney((-1*this.cost))
+            
+            /* ADD EFFECT*/ 
+        }
+    }
+}
+var eggPacker = new Packer('egg', 0, 10, 8, 2, 1)
+var fatPacker = new Packer('fat', 0, 10, 12, 3, 1)
+
 var packet = {
     'sellPrice':4,
     'reqEggs':10
 }
+
+class Unit{
+    constructor(name, count, maxCount, ops, cost, cadd, cmul) {
+        this.name = name
+        this.count = count
+        this.maxCount = maxCount
+        this.ops = ops
+        this.cost = cost
+        this.cadd = cadd
+        this.cmul = cmul
+      }
+    get count(){
+        return this.name + ': ' + this.count
+    }
+    buy(){
+        if(pMoney > this.cost){
+            changeMoney((-1*this.cost))
+            
+            /* ADD EFFECT*/ 
+        }
+    }
+}
+var chick = new Unit('chicken', 1, 10, 0, 4, 1, 1)
+
+class Harvester{
+    constructor(name, count, cap, Rps, cost, cadd, cmul){
+        this.name = name
+        this.count = count
+        this.cap = cap
+        this.Rps = Rps
+        this.cost = cost
+        this.cadd = cadd
+        this.cmul = cmul
+    }
+}
+//uncomment this when you change incub in code
+//var incub = new Harvester('incubator', 0, 1, 1, 10, 0, 1.2)
 
 var chick = {
     'count':1,
@@ -27,14 +115,6 @@ var chick = {
     'cost':4,
     'cadd':1,
     'cmul':1
-}
-
-var packer = {
-    'count':0,
-    'time':10,
-    'cost':8,
-    'cadd':1,
-    'cmul':1.04
 }
 
 var incub = {
@@ -53,8 +133,7 @@ function buy(item){
     let itemC = eval(item).cost
 
     if(pMoney >= itemC){
-        pMoney -= itemC
-        document.querySelector('.disp').innerHTML = pMoney
+        changeMoney(-1*itemC)
         addItem(item)
     }
 }
@@ -73,8 +152,12 @@ function addItem(item){
 //#endregion
 
 
-//EGGS
+//RESOURCE
 //#region 
+function animClick(){
+    updateResource(Rpc);
+}
+
 function chickenClick(){
     updateEggs(Epc);
 }
