@@ -12,15 +12,24 @@ let Bmps = 0
 let Tmps = 0 
 //#endregion
 
-class Resourec{
-    constructor(tRes, pRes, bRps, tRps, Rpc) {
-        this.tRes = tRes
-        this.pRes = pRes
-        this.bRps = bRps
-        this.tRps = tRps
-        this.Rpc = Rpc
+class Resource{
+    constructor(name) {
+        this.name = name
+        
+        this.Rpc = 1
+        this.tRes = 0
+        this.pRes = 0
+        this.bRps = 0 //base resource per second
+        this.Rps = 0 //total rps = base*multiplier
+        this.mul = 1;
     }
-
+    changebRps(add){
+        this.bRps
+        this.changeRps()
+    }
+    changeRps(){
+        this.Rps = this.bRps*this.mul
+    }
 }
 
 //VARIABLES
@@ -44,15 +53,27 @@ class Animal{
 }
 
 class Packer{
-    constructor(name, count, time, cost, cadd, cmul) {
+    constructor(name, reqRes){
         this.name = name
-        this.count = count
-        this.time = time
+        this.reqRes = reqRes
+        this.sellP = sellP
         this.cost = cost
         this.cadd = cadd
         this.cmul = cmul
+    }
+
+    constructor(name, reqRes, sellP, cost, cadd, cmul) {
+        this.name = name
+        this.reqRes = reqRes
+        this.sellP = sellP
+        this.cost = cost
+        this.cadd = cadd
+        this.cmul = cmul
+
+        this.time = 10
+        this.count = 0
       }
-    get count(){
+    get pCount(){
         return this.name + ': ' + this.count
     }
     buy(){
@@ -63,24 +84,31 @@ class Packer{
         }
     }
 }
-var eggPacker = new Packer('egg', 0, 10, 8, 2, 1)
-var fatPacker = new Packer('fat', 0, 10, 12, 3, 1)
+var eggPacker = new Packer('egg carton', 'egg', 8, 2, 1)
+var fatPacker = new Packer('jar of fat', 'fat', 12, 3, 1)
 
+//remove in code with packer sellP and reqRes
 var packet = {
     'sellPrice':4,
     'reqEggs':10
 }
 
 class Unit{
-    constructor(name, count, maxCount, ops, cost, cadd, cmul) {
+    constructor(name, resource, harvester, maxCount, cost, cadd, cmul) {
         this.name = name
-        this.count = count
+        this.resource = new Resource(resource)
+        this.packer = new Packer('pack of '+resource, this.resource) 
+        this.harvester = new Harvester(harvester, resource)
         this.maxCount = maxCount
-        this.ops = ops
         this.cost = cost
         this.cadd = cadd
         this.cmul = cmul
-      }
+
+        this.count = 1
+    }
+    changeRes(){
+
+    }
     get count(){
         return this.name + ': ' + this.count
     }
@@ -92,21 +120,42 @@ class Unit{
         }
     }
 }
-var chick = new Unit('chicken', 1, 10, 0, 4, 1, 1)
+//var chick = new Unit('chicken', 'egg', 10, 4, 1, 1)
+var chig = new Unit('chig', 'fat', 10, 10, 1, 1.05)
 
 class Harvester{
-    constructor(name, count, cap, Rps, cost, cadd, cmul){
+    constructor(name, resource){
         this.name = name
-        this.count = count
-        this.cap = cap
-        this.Rps = Rps
+        this.resource = resource
+        
+        this.cost = 1
+        this.cadd = 1
+        this.cmul = 1
+
+        this.count = 0
+        this.cap = 1
+        this.Rps = 1
+    }
+    changeCost(cost, cadd, cmul){
         this.cost = cost
         this.cadd = cadd
         this.cmul = cmul
     }
+    constructor(name, resource, cost, cadd, cmul){
+        this.name = name
+        this.resource = resource
+        
+        this.cost = cost
+        this.cadd = cadd
+        this.cmul = cmul
+
+        this.count = 0
+        this.cap = 1
+        this.Rps = 1
+    }
 }
 //uncomment this when you change incub in code
-//var incub = new Harvester('incubator', 0, 1, 1, 10, 0, 1.2)
+var incub = new Harvester('incubator', 0, 1, 1, 10, 0, 1.2)
 
 var chick = {
     'count':1,
@@ -116,7 +165,7 @@ var chick = {
     'cadd':1,
     'cmul':1
 }
-
+/*
 var incub = {
     'count':0,
     'cap':1,
@@ -124,7 +173,7 @@ var incub = {
     'cost':10,
     'cadd':0,
     'cmul':1.2
-}
+}*/
 //#endregion
 
 //BUY ITEMS
@@ -147,28 +196,29 @@ function addItem(item){
     iCount.innerHTML = parseInt(iCount.innerHTML) + parseInt(1)
     iCost.innerHTML = eval(item).cost
 
-    changeBeps()
+    changebRps(item)
 }
 //#endregion
 
 
 //RESOURCE
 //#region 
-function animClick(){
-    updateResource(Rpc);
+function animClick(res){
+    updateResource(res);
 }
 
 function chickenClick(){
     updateEggs(Epc);
 }
 
-function changeBeps(){
-    if(chick.count>incub.count*incub.cap){
-    Beps = chick.count*chick.eps + incub.count*incub.cap*incub.eps
+function changebRps(unit){
+    let harvester = 
+    if(unit.count>harvester.count*harvester.cap){
+    Beps = unit.count*unit.eps + harvester.count*harvester.cap*harvester.eps
     //beps = c.count*c.eps + i.count*i.cap*i.eps
     }
     else{
-    Beps = chick.count*chick.eps + chick.count*incub.eps
+    Beps = unit.count*unit.eps + unit.count*harvester.eps
     }
     changeTeps();
 }
