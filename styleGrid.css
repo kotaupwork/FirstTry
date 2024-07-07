@@ -13,7 +13,7 @@
   width: 250px;
 }
 
-.packing { 
+.packingContainer { 
   grid-area: footer; 
   display: flex;
   flex-direction: row;

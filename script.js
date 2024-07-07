@@ -24,11 +24,18 @@ class Currency{
     }
     subMoney(value){
         if(this.amount> value){
-        pMoney -= parseFloat(value)
-        document.querySelector('.disp').innerHTML = Math.round(parseInt(pMoney)) 
+        this.amount -= parseFloat(value)
+        displayMoney.innerHTML = parseInt(Math.round(pMoney)) 
         }
     }
+    
 }
+var Money = new Currency()
+const displayMoney = document.querySelector('.dispMoney')
+setInterval(() => {
+    Money.amount += parseFloat(Money.tMps / 10)
+    displayMoney.innerHTML = parseInt(Math.round(Money.amount))
+},100)
 
 let pMoney = 0
 let Bmps = 0
@@ -51,6 +58,7 @@ function changeMoney(value){
 }
 //#endregion
 
+//SET INTERVAL ZAVRSITI
 class Resource{
     constructor(name) {
         this.name = name
@@ -60,6 +68,7 @@ class Resource{
         this.bRps = 0 //base resource per second
         this.Rps = 0 //total rps = base*multiplier
         this.mul = 1;
+        this.element = document.querySelector(this.name)
     }
     changebRps(add){
         this.bRps
@@ -68,76 +77,19 @@ class Resource{
     changeRps(){
         this.Rps = this.bRps*this.mul
     }
+    //NAPRAVITI DA SE SVAKI RESURS POVECAVA PO SEKUNDI
+    /* 
+    setInterval(() => {
+        this.amount += Rps / 10
+        this.element.innerHTML = parseInt(Math.round(pEggs))
+    },100)*/
 }
 
 //VARIABLES
 //#region 
 
-class Animal{
-    constructor(name, resource, harvester) {
-        this.unit = new Unit(name)
-        this.resource = new Resource(resource)
-        this.packer = new Packer('pack of '+resource, this.resource) 
-        this.harvester = new Harvester(harvester, resource)
-    }
-    get Names(){
-        return 'Unit: ' + this.unit.name + ', Resource: ' + this.resource.name + ', Harvester: ' + this.harvester
-    }
-    buy(elem){
-        if(pMoney > this.cost){
-            changeMoney((-1*this.cost))
-            
-            /* ADD EFFECT*/ 
-        }
-    }
-    changebRps(){
-        const harv = this.harvester
-        const un = this.unit
-        const res = this.resource
-
-        if(un.count>harv.count*harv.cap){
-        res.bRps = harv.count*harv.cap*harv.Rps
-        //beps = c.count*c.eps + i.count*i.cap*i.eps
-        }
-        else{
-        bRps = un.count*harv.Rps
-        }
-        changeRps();
-    }
-    changeRps(){
-        Rps = bRps * mul;
-    }
-    updateRes(value){
-        this.resource.amount += parseFloat(value) 
-        //tEggs.innerHTML = parseInt(Math.round(pEggs))
-    }
-    sellForMoney(){                       
-        if(this.resource.amount>=this.packer.reqRes){                
-            updateRes(-10);
-            Money.amount += parseFloat(this.packer.sellP) 
-        }
-        if(pMoney>=10){
-            checkUpgrades(10, 'money')
-            checkUpgrades(13, 'money')
-            //checkUpgrades(parseInt(pEggs), 'egg')
-        }
-    }
-}/*
-var chickens = new Animal('chick', 'egg', 'incubator')
-chickens.unit.changeParam(4, 1, 1)
-alert(chickens.Names())*/
-
                                 //UNIT
 class Unit{
-    constructor(name, maxCount, cost, cadd, cmul) {
-        this.name = name
-        this.maxCount = maxCount
-        this.cost = cost
-        this.cadd = cadd
-        this.cmul = cmul
-
-        this.count = 1
-    }
     constructor(name) {
         this.name = name
 
@@ -146,22 +98,26 @@ class Unit{
         this.cadd = 1
         this.cmul = 1
 
-        this.count = 1
-    }
-    changeMax(value){
-        this.maxCount = value
+        this.amount = 1
     }
     changeParam(cost, cadd, cmul){
         this.cost = cost
         this.cadd = cadd
         this.cmul = cmul
     }
+    changeMax(value){
+        this.maxCount = value
+    }
+    changeCost(value){
+        this.cost = value
+    }
+    
     checkDefault(){
         if(this.cost == 10 && this.cadd == 1 && this.cmul == 1)
         alert("Default values for " + this.name)
     }
-    get count(){
-        return this.name + ': ' + this.count
+    get dispAmount(){
+        return this.name + ': ' + this.amount
     }
     buy(){
         if(pMoney > this.cost){
@@ -171,22 +127,9 @@ class Unit{
         }
     }
 }
-//var chick = new Unit('chicken', 'egg', 10, 4, 1, 1)
-var chig = new Unit('chig', 'fat', 10, 10, 1, 1.05)
 
                                 //PACKER
 class Packer{
-    constructor(name, reqRes, sellP, cost, cadd, cmul) {
-        this.name = name
-        this.reqRes = reqRes
-        this.sellP = sellP
-        this.cost = cost
-        this.cadd = cadd
-        this.cmul = cmul
-
-        this.time = 10
-        this.count = 0
-    }
     //konstruktor za pojedinacno upisivanje parametara
     constructor(name, reqRes){
         this.name = name
@@ -202,15 +145,22 @@ class Packer{
         this.cost = cost
         this.cadd = cadd
         this.cmul = cmul
+        /*
+        this.changeSellP(sellP)
+        this.changeCost(cost)
+        this.changeCadd(cadd)
+        this.changeCmul(cmul)*/
     }
-    changeSellP(sellP){
+    set changeSellP(sellP){
         this.sellP = sellP
     }
-    changeCost(cost){
+    set changeCost(cost){
         this.cost = cost
     }
-    changeCaddCmul(cadd, cmul){
+    set changeCadd(cadd){
         this.cadd = cadd
+    }
+    set changeCmul(cmul){
         this.cmul = cmul
     }
     checkDefault(){
@@ -230,22 +180,11 @@ class Packer{
 }
 //var eggPacker = new Packer('egg carton', 'egg', 8, 2, 1)
 //var fatPacker = new Packer('jar of fat', 'fat', 12, 3, 1)
-//var smallPacker = new Packer('jar of small', 'smh')
+var smallPacker = new Packer('jar of small', 'smh')
+smallPacker.changeParam(5, 5, 1, 1)
 
                                 //HARVESTER
 class Harvester{
-    constructor(name, resource, cost, cadd, cmul){
-        this.name = name
-        this.resource = resource
-        
-        this.cost = cost
-        this.cadd = cadd
-        this.cmul = cmul
-
-        this.count = 0
-        this.cap = 1
-        this.Rps = 1
-    }
     constructor(name, resource){
         this.name = name
         this.resource = resource
@@ -263,7 +202,6 @@ class Harvester{
         this.cadd = cadd
         this.cmul = cmul
     }
-    
     checkDefault(){
         if(this.cost == 10 && this.cadd == 1 && this.cmul == 1)
         alert("Default values for " + this.name)
@@ -285,6 +223,51 @@ var packet = {
     'sellPrice':4,
     'reqEggs':10
 }
+
+class Animal{
+    constructor(name, resource, harvester) {
+        this.unit = new Unit(name)
+        this.resource = new Resource(resource)
+        this.packer = new Packer(resource+'Packer', this.resource) 
+        this.harvester = new Harvester(harvester, resource)
+    }
+    get Names(){
+        return 'Unit: ' + this.unit.name + ', Resource: ' + this.resource.name + ', Harvester: ' + this.harvester
+    }
+    changebRps(){
+        if(this.unit.count>this.unit.count*this.unit.cap){
+        this.resource.bRps = this.unit.count*this.unit.cap*this.unit.Rps
+        //beps = c.count*c.eps + i.count*i.cap*i.eps
+        }
+        else{
+        bRps = this.unit.count*this.unit.Rps
+        }
+        changeRps();
+    }
+    changeRps(){
+        this.resource.Rps = this.resource.bRps * this.resource.mul;
+    }
+    updateRes(value){
+        this.resource.amount += parseFloat(value) 
+        //tEggs.innerHTML = parseInt(Math.round(this.resource.amount))
+    }
+    sellForMoney(){                       
+        if(this.resource.amount>=this.packer.reqRes){                
+            updateRes(-10);
+            Money.amount += parseFloat(this.packer.sellP) 
+        }
+        if(pMoney>=10){
+            checkUpgrades(10, 'money')
+            checkUpgrades(13, 'money')
+            //checkUpgrades(parseInt(pEggs), 'egg')
+        }
+    }
+}
+var chickens = new Animal('chick', 'egg', 'incubator')
+//chickens.chick.changeParam(4, 1, 1)
+//chickens.chick.changeParam(5, 1, 1)
+var chigs = new Animal('chig', 'fat', 'chigubator')
+//chigs.chig.changeParam(12, 1, 1.05)
 
 //#endregion
 
@@ -331,9 +314,9 @@ function updateEggs(amount){
 }
 
 setInterval(() => {
-    pEggs += Teps /2
+    pEggs += Teps / 10
     tEggs.innerHTML = parseInt(Math.round(pEggs))
-},500)
+},100)
 //#endregion
 
 
@@ -444,10 +427,12 @@ function buyUpgrade(selected){
 //#endregion
 
 let cUpgrade = 0
-function changeCursor(param){
+function changeCursor(){
     const object = document.querySelector('.chicken');
-    cUpgrade = param
-    if(cUpgrade == param)
+
+    if(cUpgrade < param){
+        cUpgrade = chickens.resource.Rpc
+    }
     switch(cUpgrade){
         case 2:
             object.style.cursor = "url('/slike/cursors/cross.cur'), auto"
