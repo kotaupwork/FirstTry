@@ -17,8 +17,27 @@ chow
     lether -> choots
 }
 
-chiish
+chish
 {
     scales
     bones
+}
+
+//chicken whale
+chale
+{
+    stem cells
+}
+
+//chicken snake
+chake
+{
+    scales
+}
+
+
+//chicken dragon
+chagon
+{
+    scales
 }

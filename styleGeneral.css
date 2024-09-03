@@ -13,16 +13,12 @@
     background-size: cover;
 }
 
-.chicken{
+.animal{
     cursor: pointer;
     width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
 }
-/*
-.chicken:hover{
-    cursor: url('/slike/WIB.cur'), auto;
-}*/
 
 
 
